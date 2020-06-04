@@ -111,10 +111,8 @@ link * chain::find(int i) {
 
 // functionality
 int chain::append(int n) {
-    if (ln < 0) { // if we've added nothing yet
-        hd = new link(n);
-    }
-
+    if (ln < 0) hd = new link(n); // if we've added nothing yet
+    
     link * temp = new link(n);
     tail()->linkNext(temp);
     ln++;
@@ -127,21 +125,5 @@ int chain::operator[](int i) { // returns the VALUE of the ith link
 }
 
 int main () {
-    cout << "Hello, world!" << endl;
-
-    int testcount;
-    cout << "Enter test count: ";
-    cin >> testcount;
-
-    chain c;
-
-    for (int i = 0; i < testcount; i++) {
-        c.append(i);
-    }
-
-    for (int i = 0; i < testcount; i++) {
-        cout << c[i] << endl;
-    }
-
     return 0;
 }
