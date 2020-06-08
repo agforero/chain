@@ -1,5 +1,4 @@
 #include <iostream>
-#include <tuple>
 using namespace std;
 
 class link {
@@ -17,6 +16,10 @@ public:
 
     // functionality
     int linkNext(link *);
+    void set(int);
+
+    // operators
+    void operator = (int i);
 };
 
 // constructors
@@ -39,6 +42,15 @@ int link::linkNext(link * l) {
     if (!l) return 1; 
     nx = l;
     return 0;
+}
+
+void link::set(int n) {
+    v = n;
+}
+
+// operators 
+void link::operator = (int i) {
+    set(i);
 }
 
 class chain {
@@ -120,10 +132,26 @@ int chain::append(int n) {
 }
 
 // operators
-int chain::operator[](int i) { // returns the VALUE of the ith link
+int chain::operator [] (int i) { // returns the VALUE of the ith link
     return find(i)->val();
 }
 
 int main () {
+    cout << "Hello, world!" << endl;
+
+    int testcount;
+    cout << "Enter test count: ";
+    cin >> testcount;
+
+    chain c;
+
+    for (int i = 0; i < testcount; i++) {
+        c.append(i);
+    }
+
+    for (int i = 0; i < testcount; i++) {
+        cout << c[i] << endl;
+    }
+
     return 0;
 }
