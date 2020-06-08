@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdarg>
 using namespace std;
 
 class link {
@@ -136,6 +137,11 @@ int chain::operator [] (int i) { // returns the VALUE of the ith link
     return find(i)->val();
 }
 
+template <typename T> // doesn't need a semicolon which is wacky
+void printWhatever(T a1) {
+    cout << a1 << endl;
+}
+
 int main () {
     cout << "Hello, world!" << endl;
 
@@ -152,6 +158,9 @@ int main () {
     for (int i = 0; i < testcount; i++) {
         cout << c[i] << endl;
     }
+
+    printWhatever<int>(99);
+    printWhatever<char>('c');
 
     return 0;
 }
