@@ -2,35 +2,40 @@
 #include <cstdarg>
 using namespace std;
 
+#define TTT template <typename T> 
+
 class link {
 private:
-    int v;
+    void * v;
     link * nx;
 
 public:
     // constructors
-    link(int);
+    TTT link(T n);
 
     // gets
-    int val();
+    void * val(); // cursed? or not.
     link * next();
 
     // functionality
     int linkNext(link *);
-    void set(int);
+    TTT void set(T);
+    void deleteVal();
 
     // operators
-    void operator = (int i);
+    TTT void operator = (T);
 };
 
 // constructors
-link::link(int n) {
-    v = n;
+TTT link::link(T n) {
+    T * adr = new T;
+    *adr = n; // the thing adr is pointing to set to n
+    v = adr;
     nx = NULL;
 }
 
 // gets
-int link::val() {
+void * link::val() {
     return v;
 }
 
@@ -45,12 +50,18 @@ int link::linkNext(link * l) {
     return 0;
 }
 
-void link::set(int n) {
-    v = n;
+TTT void link::set(T n) {
+    T * adr = new T;
+    *adr = n;
+    v = adr;
+}
+
+void link::deleteVal() {
+    delete v;
 }
 
 // operators 
-void link::operator = (int i) {
+TTT void link::operator = (T i) {
     set(i);
 }
 
@@ -72,10 +83,10 @@ public:
     link * find(int);
 
     // functionality
-    int append(int);
+    TTT int append(T);
 
     // custom operators
-    int operator [](int i);
+    void * operator [](int i);
 };
 
 // constructors
@@ -84,17 +95,13 @@ chain::chain() { // no predetermined hd value
     ln = -1; // this might be wacky
 }
 
-chain::chain(int v) { // w/ predetermined hd value
-    link * hd = new link(v);
-    ln = 0; // makes finding the tail smoother
-}
-
 chain::~chain() {
     link * cur = hd;
     for (int i = ln; i > 0; i--) {
         for (int j = i; j > 0; j--) {
             cur = cur->next();
         }
+        cur->deleteVal();
         delete cur;
         cur = hd;
     }
@@ -123,7 +130,7 @@ link * chain::find(int i) {
 }
 
 // functionality
-int chain::append(int n) {
+TTT int chain::append(T n) {
     if (ln < 0) hd = new link(n); // if we've added nothing yet
     
     link * temp = new link(n);
@@ -133,13 +140,12 @@ int chain::append(int n) {
 }
 
 // operators
-int chain::operator [] (int i) { // returns the VALUE of the ith link
-    return find(i)->val();
-}
+void * chain::operator [] (int i) { // returns the VALUE of the ith link
+    //void * adr = find(i)->val();
+    //auto ret = adr;
+    //return ret;
 
-template <typename T> // doesn't need a semicolon which is wacky
-void printWhatever(T a1) {
-    cout << a1 << endl;
+    return find(i)->val();
 }
 
 int main () {
@@ -156,11 +162,9 @@ int main () {
     }
 
     for (int i = 0; i < testcount; i++) {
-        cout << c[i] << endl;
+        int * ptr = reinterpret_cast<int*>(c[i]);
+        cout << *ptr << endl;
     }
-
-    printWhatever<int>(99);
-    printWhatever<char>('c');
 
     return 0;
 }
