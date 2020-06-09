@@ -86,7 +86,7 @@ public:
     TTT int append(T);
 
     // custom operators
-    void * operator [](int i);
+    int operator [](int i);
 };
 
 // constructors
@@ -140,13 +140,14 @@ TTT int chain::append(T n) {
 }
 
 // operators
-void * chain::operator [] (int i) { // returns the ADDRESS of the ith link
-    return find(i)->val();
+int chain::operator [] (int i) { // returns the ADDRESS of the ith link
+    //return find(i)->val();
+    int * ptr = reinterpret_cast<int*>(find(i)->val());
+    int ret = *ptr;
+    return ret;
 }
 
 int main () {
-    cout << "Hello, world!" << endl;
-
     int testcount;
     cout << "Enter test count: ";
     cin >> testcount;
@@ -158,8 +159,7 @@ int main () {
     }
 
     for (int i = 0; i < testcount; i++) {
-        int * ptr = reinterpret_cast<int*>(c[i]);
-        cout << *ptr << endl;
+        cout << c[i] << endl;
     }
 
     return 0;
