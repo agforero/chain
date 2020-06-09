@@ -140,8 +140,7 @@ TTT int chain::append(T n) {
 }
 
 // operators
-int chain::operator [] (int i) { // returns the ADDRESS of the ith link
-    //return find(i)->val();
+int chain::operator [] (int i) { // returns the VALUE of the link
     int * ptr = reinterpret_cast<int*>(find(i)->val());
     int ret = *ptr;
     return ret;
