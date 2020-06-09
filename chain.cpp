@@ -140,11 +140,7 @@ TTT int chain::append(T n) {
 }
 
 // operators
-void * chain::operator [] (int i) { // returns the VALUE of the ith link
-    //void * adr = find(i)->val();
-    //auto ret = adr;
-    //return ret;
-
+void * chain::operator [] (int i) { // returns the ADDRESS of the ith link
     return find(i)->val();
 }
 
@@ -158,7 +154,7 @@ int main () {
     chain c;
 
     for (int i = 0; i < testcount; i++) {
-        c.append(i);
+        c.append(i); // doesn't even require stuff from triple T!!!! I think!!!!!!
     }
 
     for (int i = 0; i < testcount; i++) {
