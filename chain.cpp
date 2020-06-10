@@ -1,7 +1,7 @@
 #include "chain.h"
 using namespace std;
 
-// #define TTT template <typename T> 
+#define TTT template <typename T> 
 
 // constructors
 TTT link::link(T n) {
