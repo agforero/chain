@@ -143,7 +143,7 @@ TTT void chain::append(T n) {
 
 // operators
 int chain::operator [] (int i) { // returns the VALUE of the link
-    int * ptr = reinterpret_cast<int*>(find(i)->val());
+    int * ptr = reinterpret_cast<int*>(find(i)->val()); // I could perhaps use a switch{} structure here. Not as flexible, but I guess it sorta is?
     int ret = *ptr;
     return ret;
 }
